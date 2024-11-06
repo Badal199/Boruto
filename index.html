@@ -1,0 +1,171 @@
+=<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titleBORUTO UZUMAKI Predicting Upcoming Results</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #000; /* Dark hacker-themed background */
+            color: #0f0; /* Hacker green color for text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #0f0;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            animation: hacker-bg 5s infinite;
+        }
+        h1 {
+            font-size: 2.5em;
+            text-shadow: 0 0 10px #0f0;
+        }
+        .timer, .period {
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        #get-result {
+            padding: 10px 20px;
+            background-color: #0f0;
+            color: #000;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 0 10px #0f0;
+        }
+        @keyframes hacker-bg {
+            0% { background-color: #000; }
+            50% { background-color: #111; }
+            100% { background-color: #000; }
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background-color: #111;
+            border: 3px solid #0f0;
+            padding: 20px;
+            z-index: 10;
+            text-align: center;
+            color: #0f0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #0f0;
+        }
+        .popup h2 {
+            margin-top: 0;
+            text-shadow: 0 0 10px #0f0;
+        }
+        .popup table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .popup table th, .popup table td {
+            padding: 15px;
+            border: 2px solid #0f0;
+            text-align: center;
+            font-size: 1.5em;
+        }
+        .popup table th {
+            background-color: #0f0;
+            color: #000;
+        }
+        .popup table td {
+            background-color: #000;
+        }
+        .close-btn {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border: none;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>BORUTO UZUMAKI Predicting Results</h1>
+
+    <div class="period" id="period1m">Period: Loading...</div>
+    <div class="timer" id="timer1m">Timer: Loading...</div>
+
+    <button id="get-result">Get Result</button>
+
+    <div class="popup" id="result-popup">
+        <h2>Result for Current Period</h2>
+        <table>
+            <tr>
+                <th>Period</th>
+                <th>Result</th>
+            </tr>
+            <tr>
+                <td id="popup-period">Loading...</td>
+                <td id="popup-result">Loading...</td>
+            </tr>
+        </table>
+        <button class="close-btn" id="close-popup">Close</button>
+    </div>
+</div>
+
+<script>
+    let period1m = document.getElementById('period1m');
+    let timer1m = document.getElementById('timer1m');
+    let currentResult = '';
+    
+    let results = ["BIG 💚", "SMALL 💚", "BIG ❤️", "SMALL ❤️", "BIG 💚", "SMALL 💚", "SMALL 💚", "BIG 💚", "SMALL ❤️"]; // Predefined result patterns
+    
+    // Simulate Timer Code by @Cortexop_01
+    setInterval(function() {
+        const date = new Date();
+        const seconds = date.getUTCSeconds();
+        const remainingSeconds = 60 - seconds;
+        const minutes = date.getUTCMinutes();
+        const totalMinutes = date.getUTCHours() * 60 + minutes;
+
+        // Update period number for each minute
+        const periodNumber = "Period: " + date.getUTCFullYear() + ("0" + (date.getUTCMonth() + 1)).slice(-2) + ("0" + date.getUTCDate()).slice(-2) + 
+            "1000" + (10001 + totalMinutes);
+        period1m.innerText = periodNumber;
+
+        // Update timer format: "  x x  :  x x"
+        timer1m.innerText = "Timer:   " + ("0" + Math.floor(remainingSeconds / 10)).slice(-2) + "  :  " + ("0" + (remainingSeconds % 10)).slice(-2);
+
+        // Update the result whenever the period changes (i.e., when remaining seconds is 59, a new minute)
+        if (remainingSeconds === 59) {
+            currentResult = results[totalMinutes % results.length];  // Cycle through results based on the period number
+        }
+    }, 1000);  // Update every second
+
+    // Handle Get Result Button click
+    document.getElementById('get-result').addEventListener('click', function() {
+        if (currentResult !== '') {
+            document.getElementById('popup-period').innerText = period1m.innerText;
+            document.getElementById('popup-result').innerText = currentResult;
+            document.getElementById('result-popup').style.display = 'block';
+        } else {
+            document.getElementById('popup-result').innerText = "Result not ready yet!";
+        }
+    });
+
+    // Handle Close Popup Button
+    document.getElementById('close-popup').addEventListener('click', function() {
+        document.getElementById('result-popup').style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
