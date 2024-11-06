@@ -1,9 +1,9 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <titleBORUTO UZUMAKI Predicting Upcoming Results</title>
+    <title>BN LAST KING Predicting Upcoming Results</title>
     <style>
         body {
             font-family: 'Courier New', Courier, monospace;
@@ -27,6 +27,15 @@
             font-size: 2.5em;
             text-shadow: 0 0 10px #0f0;
         }
+        .results-table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        .results-table td {
+            padding: 15px;
+            font-size: 1.5em;
+            border: 1px solid #0f0;
+        }
         .timer, .period {
             font-size: 2em;
             margin: 10px 0;
@@ -38,7 +47,6 @@
             border: none;
             font-size: 1.5em;
             cursor: pointer;
-            box-shadow: 0 0 10px #0f0;
         }
         @keyframes hacker-bg {
             0% { background-color: #000; }
@@ -51,72 +59,58 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 500px;
             background-color: #111;
-            border: 3px solid #0f0;
+            border: 2px solid #0f0;
             padding: 20px;
             z-index: 10;
             text-align: center;
             color: #0f0;
-            border-radius: 10px;
-            box-shadow: 0 0 15px #0f0;
-        }
-        .popup h2 {
-            margin-top: 0;
-            text-shadow: 0 0 10px #0f0;
-        }
-        .popup table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .popup table th, .popup table td {
-            padding: 15px;
-            border: 2px solid #0f0;
-            text-align: center;
-            font-size: 1.5em;
-        }
-        .popup table th {
-            background-color: #0f0;
-            color: #000;
-        }
-        .popup table td {
-            background-color: #000;
         }
         .close-btn {
             background-color: red;
             color: white;
-            padding: 10px 20px;
-            font-size: 1.2em;
-            cursor: pointer;
+            padding: 5px 10px;
             border: none;
-            margin-top: 20px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>BORUTO UZUMAKI Predicting Results</h1>
+    <h1>BORUTO UZUMAKI TRX</h1>
 
     <div class="period" id="period1m">Period: Loading...</div>
     <div class="timer" id="timer1m">Timer: Loading...</div>
 
+    <table class="results-table">
+        <tr>
+            <td>BIG 💚</td>
+            <td>SMALL 💚</td>
+        </tr>
+        <tr>
+            <td>BIG ❤️</td>
+            <td>SMALL ❤️</td>
+        </tr>
+        <tr>
+            <td>BIG 💚</td>
+            <td>SMALL 💚</td>
+        </tr>
+        <tr>
+            <td>SMALL 💚</td>
+            <td>BIG 💚</td>
+        </tr>
+        <tr>
+            <td>SMALL 💚</td>
+            <td>BIG ❤️</td>
+        </tr>
+    </table>
+
     <button id="get-result">Get Result</button>
 
     <div class="popup" id="result-popup">
-        <h2>Result for Current Period</h2>
-        <table>
-            <tr>
-                <th>Period</th>
-                <th>Result</th>
-            </tr>
-            <tr>
-                <td id="popup-period">Loading...</td>
-                <td id="popup-result">Loading...</td>
-            </tr>
-        </table>
+        <h2>Result</h2>
+        <p id="popup-result">Result Loading...</p>
         <button class="close-btn" id="close-popup">Close</button>
     </div>
 </div>
@@ -153,7 +147,6 @@
     // Handle Get Result Button click
     document.getElementById('get-result').addEventListener('click', function() {
         if (currentResult !== '') {
-            document.getElementById('popup-period').innerText = period1m.innerText;
             document.getElementById('popup-result').innerText = currentResult;
             document.getElementById('result-popup').style.display = 'block';
         } else {
